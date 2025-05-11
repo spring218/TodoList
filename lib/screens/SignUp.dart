@@ -80,12 +80,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             style: TextStyle(color: Colors.grey[700], fontSize: 14),
           ),
           const SizedBox(width: 5),
-          Text(
-            "Login",
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: widget.show,
+            child: Text(
+              'Login',
+              style: TextStyle(
+                color: Colors.blue,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -164,7 +167,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                         : const Color(0xFFC5C5C5),
               ),
             ),
-            hintText: "typeName",
+            hintText: typeName,
             hintStyle: const TextStyle(color: Colors.grey),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 15,

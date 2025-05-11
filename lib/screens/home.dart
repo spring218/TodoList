@@ -1,39 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/rendering.dart';
+import 'package:todolist/const/colors.dart';
+import 'package:todolist/screens/add_task_screen.dart';
+import 'package:todolist/widgets/stream_note.dart';
 
 class Home_Screen extends StatefulWidget {
   const Home_Screen({super.key});
 
   @override
-  State<Home_Screen> createState() => _MyWidgetState();
+  State<Home_Screen> createState() => _Home_ScreenState();
 }
 
-class _MyWidgetState extends State<Home_Screen> {
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-  }
+bool show = true;
 
+class _Home_ScreenState extends State<Home_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-        backgroundColor: Colors.blue,
-        actions: [
-          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout)),
-        ],
+      backgroundColor: backgroundColors,
+      floatingActionButton: Visibility(
+        visible: show,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => Add_Screen()));
+          },
+          backgroundColor: custom_green,
+          child: Icon(Icons.add, size: 30),
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to the Home Screen!',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(onPressed: () {}, child: const Text('Get Started')),
-          ],
+      body: SafeArea(
+        child: NotificationListener<UserScrollNotification>(
+          onNotification: (notification) {
+            if (notification.direction == ScrollDirection.forward) {
+              setState(() {
+                show = true;
+              });
+            }
+            if (notification.direction == ScrollDirection.reverse) {
+              setState(() {
+                show = false;
+              });
+            }
+            return true;
+          },
+          child: Column(
+            children: [
+              Stream_note(false),
+              Text(
+                'isDone',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey.shade500,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Stream_note(true),
+            ],
+          ),
         ),
       ),
     );

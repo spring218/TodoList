@@ -150,7 +150,7 @@ class _LogIN_ScreenState extends State<LogIN_Screen> {
                         : const Color(0xFFC5C5C5),
               ),
             ),
-            hintText: "typeName",
+            hintText: typeName,
             hintStyle: const TextStyle(color: Colors.grey),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 15,
