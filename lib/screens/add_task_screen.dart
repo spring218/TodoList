@@ -127,8 +127,17 @@ class _Add_ScreenState extends State<Add_Screen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _customButton("Add Task", custom_green, () {
-          Firestore_Datasource().AddNote(subtitle.text, title.text, indexx);
-          Navigator.pop(context);
+          if (title.text.trim().isEmpty || subtitle.text.trim().isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Please enter both title and subtitle."),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else {
+            Firestore_Datasource().AddNote(subtitle.text, title.text, indexx);
+            Navigator.pop(context);
+          }
         }),
         _customButton("Cancel", Colors.red, () {
           Navigator.pop(context);

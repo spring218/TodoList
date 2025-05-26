@@ -136,13 +136,22 @@ class _Edit_ScreenState extends State<Edit_Screen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _customButton("Save", custom_green, () {
-          Firestore_Datasource().Update_Note(
-            widget._note.id,
-            indexx,
-            title!.text,
-            subtitle!.text,
-          );
-          Navigator.pop(context);
+          if (title!.text.trim().isEmpty || subtitle!.text.trim().isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Please enter both title and subtitle."),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else {
+            Firestore_Datasource().Update_Note(
+              widget._note.id,
+              indexx,
+              title!.text,
+              subtitle!.text,
+            );
+            Navigator.pop(context);
+          }
         }),
         _customButton("Cancel", Colors.red, () {
           Navigator.pop(context);
@@ -150,6 +159,7 @@ class _Edit_ScreenState extends State<Edit_Screen> {
       ],
     );
   }
+
 
   Widget _customButton(String text, Color color, VoidCallback onTap) {
     return ElevatedButton(

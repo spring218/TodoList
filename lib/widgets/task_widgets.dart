@@ -49,11 +49,15 @@ class _Task_WidgetState extends State<Task_Widget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget._note.title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        // FIX 1: Wrap Text with Expanded to prevent overflow
+                        Expanded(
+                          child: Text(
+                            widget._note.title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis, // Add ellipsis for long titles
                           ),
                         ),
                         Checkbox(
@@ -121,7 +125,8 @@ class _Task_WidgetState extends State<Task_Widget> {
               ),
             ),
           ),
-          SizedBox(width: 20),
+          // FIX 2: Use Spacer instead of SizedBox for flexible spacing
+          Spacer(),
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(
