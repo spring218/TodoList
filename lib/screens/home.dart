@@ -22,9 +22,8 @@ class _Home_ScreenState extends State<Home_Screen> {
       // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginScreen()));
     } catch (e) {
       print('Error during logout: $e');
-      // Handle logout error, e.g., show a snackbar
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Đăng xuất thất bại: $e')),
+        SnackBar(content: Text('Logout failed: $e')),
       );
     }
   }
@@ -44,13 +43,12 @@ class _Home_ScreenState extends State<Home_Screen> {
         child: SafeArea(
           child: NotificationListener<UserScrollNotification>(
             onNotification: (notification) {
-              // Hide/show Floating Action Button on scroll
               if (notification.direction == ScrollDirection.forward) {
                 setState(() => showFab = true);
               } else if (notification.direction == ScrollDirection.reverse) {
                 setState(() => showFab = false);
               }
-              return true; // Return true to allow the notification to continue to be dispatched.
+              return true;
             },
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
@@ -59,7 +57,6 @@ class _Home_ScreenState extends State<Home_Screen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      // This Expanded widget ensures the inner Row takes available space
                       child: Row(
                         children: [
                           const Icon(Icons.task, color: Colors.black87, size: 30),
@@ -73,13 +70,12 @@ class _Home_ScreenState extends State<Home_Screen> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black87,
                               ),
-                              overflow: TextOverflow.ellipsis, // Truncate long text with ellipsis
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    // PopupMenuButton for logout option
                     PopupMenuButton<String>(
                       icon: const Icon(Icons.more_vert),
                       onSelected: (value) {
@@ -92,7 +88,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                           value: 'logout',
                           child: ListTile(
                             leading: Icon(Icons.logout),
-                            title: Text('Đăng xuất'),
+                            title: Text('Logout'),
                           ),
                         ),
                       ],
@@ -121,7 +117,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                 const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
-                  child: Stream_note(false), // Display 'To Do' notes
+                  child: Stream_note(false),
                 ),
                 const SizedBox(height: 30),
                 // Section for 'Completed' tasks
@@ -146,7 +142,7 @@ class _Home_ScreenState extends State<Home_Screen> {
                 const SizedBox(height: 12),
                 SizedBox(
                   width: double.infinity,
-                  child: Stream_note(true), // Display 'Completed' notes
+                  child: Stream_note(true),
                 ),
                 const SizedBox(height: 60),
               ],
@@ -154,23 +150,21 @@ class _Home_ScreenState extends State<Home_Screen> {
           ),
         ),
       ),
-      // Floating Action Button for adding new tasks
       floatingActionButton: AnimatedSlide(
-        offset: showFab ? Offset.zero : const Offset(0, 2), // Slide in/out effect
+        offset: showFab ? Offset.zero : const Offset(0, 2),
         duration: const Duration(milliseconds: 300),
         child: AnimatedOpacity(
-          opacity: showFab ? 1 : 0, // Fade in/out effect
+          opacity: showFab ? 1 : 0,
           duration: const Duration(milliseconds: 300),
           child: FloatingActionButton(
             backgroundColor: custom_green,
             elevation: 10,
             onPressed: () async {
-              // Navigate to Add_Screen and refresh state after returning
               await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => Add_Screen()),
               );
-              setState(() {}); // Refresh the UI to show newly added tasks
+              setState(() {});
             },
             child: const Icon(Icons.add, size: 30),
           ),
