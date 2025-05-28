@@ -18,23 +18,19 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   bool _obscurePassword = true;
   bool _obscurePasswordConfirmation = true;
 
-
   final email = TextEditingController();
   final password = TextEditingController();
   final passwordConfirmation = TextEditingController();
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _focusNode1.addListener(() {
       setState(() {});
     });
-    super.initState();
     _focusNode2.addListener(() {
       setState(() {});
     });
-    super.initState();
     _focusNode3.addListener(() {
       setState(() {});
     });
@@ -53,13 +49,32 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               const SizedBox(height: 50),
               textfield(email, _focusNode1, "Email", Icons.email),
               const SizedBox(height: 10),
-              textfield(password, _focusNode2, "Password", Icons.password),
+              textfield(
+                password,
+                _focusNode2,
+                "Password",
+                Icons.lock,
+                isPassword: true,
+                obscureText: _obscurePassword,
+                toggleObscure: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
               const SizedBox(height: 10),
               textfield(
                 passwordConfirmation,
                 _focusNode3,
-                "PassWordConfirmation",
-                Icons.password,
+                "Confirm Password",
+                Icons.lock,
+                isPassword: true,
+                obscureText: _obscurePasswordConfirmation,
+                toggleObscure: () {
+                  setState(() {
+                    _obscurePasswordConfirmation = !_obscurePasswordConfirmation;
+                  });
+                },
               ),
               const SizedBox(height: 8),
               account(),
@@ -196,7 +211,6 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
       ),
     );
   }
-
 
   Widget image() {
     return Padding(
