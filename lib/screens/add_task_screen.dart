@@ -287,10 +287,10 @@ class _Add_ScreenState extends State<Add_Screen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _customButton("Add Task", custom_green, () async {
-          if (title.text.trim().isEmpty || subtitle.text.trim().isEmpty) {
+          if (title!.text.trim().isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("Please enter both title and description."),
+                content: Text("Please enter the title."),
                 backgroundColor: Colors.red,
               ),
             );

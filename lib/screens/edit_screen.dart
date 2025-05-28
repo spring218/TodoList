@@ -300,10 +300,10 @@ class _Edit_ScreenState extends State<Edit_Screen> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _customButton("Save", custom_green, () async {
-          if (title!.text.trim().isEmpty || subtitle!.text.trim().isEmpty) {
+          if (title!.text.trim().isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text("Please enter both title and subtitle."),
+                content: Text("Please enter the title."),
                 backgroundColor: Colors.red,
               ),
             );
